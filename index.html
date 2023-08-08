@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Invoice Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable"></script>
+  </head>
+  <body>
+    <h1>Fill Details</h1>
+
+    <form id="generalDetailsForm">
+      <h3>General Details:</h3>
+
+      <div>
+        <label for="invoiceNo">Invoice No</label>
+        <input type="text" name="invoiceNo" id="invoiceNo" />
+      </div>
+
+      <div>
+        <label for="year">Year</label>
+        <input type="text" name="year" id="year" />
+      </div>
+
+      <div>
+        <label for="dated">Dated</label>
+        <input type="text" name="dated" id="dated" />
+      </div>
+
+      <div>
+        <button id="addGeneralDetails">Add General Details</button>
+      </div>
+    </form>
+
+    <form id="buyerDetailsForm">
+      <h3>Buyer Details:</h3>
+
+      <div>
+        <label for="bNAme">Buyer Name</label>
+        <input type="text" name="bNAme" id="bNAme" />
+      </div>
+
+      <div>
+        <label for="bAddress">Buyer Address</label>
+        <textarea name="bAddress" id="bAddress" cols="30" rows="10"></textarea>
+      </div>
+
+      <div>
+        <label for="bStateAndCode">Buyer State & Code</label>
+        <input type="text" name="bStateAndCode" id="bStateAndCode" />
+      </div>
+
+      <div>
+        <label for="bGST">Buyer GST No. / UIN</label>
+        <input type="text" name="bGST" id="bGST" />
+      </div>
+
+      <div>
+        <button id="addBuyerDetails">Add Buyer Details</button>
+      </div>
+    </form>
+
+    <form id="itemDetailsForm">
+      <h3>Item Details:</h3>
+
+      <div>
+        <label for="srNo">Sr No.</label>
+        <input type="number" name="srNo" id="srNo" />
+      </div>
+
+      <div>
+        <label for="hsnCode">HSN / SAC Code</label>
+        <input type="text" name="hsnCode" id="hsnCode" />
+      </div>
+
+      <div>
+        <label for="description">Description</label>
+        <textarea
+          name="description"
+          id="description"
+          cols="30"
+          rows="10"
+        ></textarea>
+      </div>
+
+      <div>
+        <label for="rate">Rate</label>
+        <input type="text" name="rate" id="rate" />
+      </div>
+
+      <div>
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity" />
+      </div>
+
+      <div>
+        <label for="taxableValue">Taxable Value</label>
+        <input type="text" name="taxableValue" id="taxableValue" />
+      </div>
+
+      <h5>Central Tax</h5>
+
+      <div>
+        <label for="cTaxPercent">Percent</label>
+        <input type="number" name="cTaxPercent" id="cTaxPercent" />
+      </div>
+
+      <div>
+        <label for="cTaxAmount">Amount</label>
+        <input type="text" name="cTaxAmount" id="cTaxAmount" />
+      </div>
+
+      <h5>State Tax</h5>
+
+      <div>
+        <label for="sTaxPercent">Percent</label>
+        <input type="number" name="sTaxPercent" id="sTaxPercent" />
+      </div>
+
+      <div>
+        <label for="sTaxAmount">Amount</label>
+        <input type="text" name="sTaxAmount" id="sTaxAmount" />
+      </div>
+
+      <div>
+        <button id="add">Add Item</button>
+      </div>
+    </form>
+
+    <h1>Preview Of Invoice</h1>
+
+    <table class="table">
+      <tr>
+        <td colspan="4" rowspan="8">
+          <p><strong>Seller: LAXMI V ENTERPRISE</strong></p>
+          <p>
+            <strong>Add:</strong> Hotel Sapphire, PLOT NO.4/B, SHOP NO.2, MOMAY
+            COMPLEX BHAKTI PARK, SH 48, Vill:- Nana Kapaya, Gujarat, 370421.
+          </p>
+          <p><strong>State & Code:</strong> Gujarat 24</p>
+          <p><strong>GSTNo / UIN:</strong> 24IRYPS8164N1ZC</p>
+          <p><strong>Email:</strong> laxmiventeprise@gmail.com</p>
+        </td>
+        <td colspan="3" rowspan="4">
+          <p><strong>Invoice No:</strong> <span id="iNo"></span></p>
+          <p><strong>Year:</strong> <span id="ye"></span></p>
+        </td>
+        <td colspan="3" rowspan="4">
+          <p><strong>Dated:</strong></p>
+          <p id="dat"></p>
+        </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td colspan="3" rowspan="4">Buyer's Order Details</td>
+        <td colspan="3" rowspan="4">Dated</td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr>
+        <td colspan="4" rowspan="8">
+          <p>
+            <strong>Buyer: <span id="buyerName"></span></strong>
+          </p>
+          <p>
+            <strong>Add:</strong>
+            <span id="buyerAddress"></span>
+          </p>
+          <p>
+            <strong>State & Code:</strong>
+            <span id="buyerStateAndCode"></span>
+          </p>
+          <p>
+            <strong>GSTNo / UIN:</strong>
+            <span id="buyerGST"></span>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="8" rowspan="8">
+          <p><strong>Bank Account Details For RTGS / NEFT Purpose:</strong></p>
+          <p><strong>Bank Name :</strong> AXIS BANK</p>
+          <p><strong>Branch :</strong> SAMAGHOGHA</p>
+          <p><strong>IFSC Code :</strong> UTIB0002271</p>
+          <p><strong>Beneficiary Name :</strong> SHARMA LAXMIDEVI</p>
+          <p><strong>Account Number :</strong> 922020052287481</p>
+          <p><strong>Company's PAN :</strong> IRYPS8164N</p>
+        </td>
+      </tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+
+      <tr>
+        <th rowspan="2">Sr No.</th>
+        <th rowspan="2">Description</th>
+        <th rowspan="2">HSN / SAC</th>
+        <th rowspan="2">Rate</th>
+        <th rowspan="2">Quantity</th>
+        <th rowspan="2">Taxable Value</th>
+        <th colspan="2">Central Tax</th>
+        <th colspan="2">State Tax</th>
+      </tr>
+      <tr>
+        <th>Percent</th>
+        <th>Amount</th>
+        <th>Percent</th>
+        <th>Amount</th>
+      </tr>
+      <tr id="totalRow">
+        <td colspan="3">Total</td>
+        <td></td>
+        <td id="totalQuantity">0</td>
+        <td id="totalTaxableValue">0</td>
+        <td></td>
+        <td id="totalCTaxAmount">0</td>
+        <td></td>
+        <td id="totalSTaxAmount">0</td>
+      </tr>
+      <tr class="totals">
+        <td colspan="9" class="totalsText">Total Taxable Value</td>
+        <td>Rs. <span id="ttv">0</span></td>
+      </tr>
+      <tr class="totals">
+        <td colspan="9" class="totalsText">Total Central GST</td>
+        <td>Rs. <span id="tcg">0</span></td>
+      </tr>
+      <tr class="totals">
+        <td colspan="9" class="totalsText">Total State GST</td>
+        <td>Rs. <span id="tsg">0</span></td>
+      </tr>
+      <tr class="totals">
+        <td colspan="9" class="totalsText">Grand Total</td>
+        <td>Rs. <span id="grandTotal">0</span></td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <p><strong>Amount Chargeable (in words):</strong></p>
+          <p id="rupeesInWords"></p>
+        </td>
+        <td colspan="4" rowspan="2" id="esignCell">
+          <img src="e-sign.png" alt="e-sign" id="esignImage" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6" id="rupeesInWords">
+          <p><strong>Declaration</strong></p>
+          <p>
+            I hereby declare that this invoice shows the actual price of the
+            goods /services described and that all particulars are true and
+            correct.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="10" id="tablefooter">
+          This is a Computer Generated Invoice
+        </td>
+      </tr>
+    </table>
+
+    <form>
+      <div>
+        <label for="words">Enter Rupees in Words</label>
+        <input type="text" name="words" id="words" />
+      </div>
+
+      <div>
+        <button id="insert">Insert</button>
+      </div>
+    </form>
+
+    <div>
+      <button id="generate-pdf">Generate PDF</button>
+    </div>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
