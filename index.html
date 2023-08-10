@@ -184,13 +184,23 @@
       </tr>
       <tr>
         <td colspan="8" rowspan="8">
-          <p><strong>Bank Account Details For RTGS / NEFT Purpose:</strong></p>
-          <p><strong>Bank Name :</strong> AXIS BANK</p>
-          <p><strong>Branch :</strong> SAMAGHOGHA</p>
-          <p><strong>IFSC Code :</strong> UTIB0002271</p>
-          <p><strong>Beneficiary Name :</strong> SHARMA LAXMIDEVI</p>
-          <p><strong>Account Number :</strong> 922020052287481</p>
-          <p><strong>Company's PAN :</strong> IRYPS8164N</p>
+          <div id="accountDetails">
+            <div>
+              <p>
+                <strong>Bank Account Details For RTGS / NEFT Purpose:</strong>
+              </p>
+              <p><strong>Bank Name :</strong> AXIS BANK</p>
+              <p><strong>Branch :</strong> SAMAGHOGHA</p>
+              <p><strong>IFSC Code :</strong> UTIB0002271</p>
+              <p><strong>Beneficiary Name :</strong> SHARMA LAXMIDEVI</p>
+              <p><strong>Account Number :</strong> 922020052287481</p>
+              <p><strong>Company's PAN :</strong> IRYPS8164N</p>
+            </div>
+            <div id="qrContainer">
+              <div>Scan & Pay</div>
+              <img src="UPI_QR_Code krishna.png" alt="qrcode" id="qrcode" />
+            </div>
+          </div>
         </td>
       </tr>
       <tr></tr>
@@ -221,11 +231,11 @@
         <td colspan="3">Total</td>
         <td></td>
         <td id="totalQuantity">0</td>
-        <td id="totalTaxableValue">0</td>
+        <td>Rs. <span id="totalTaxableValue">0</span></td>
         <td></td>
-        <td id="totalCTaxAmount">0</td>
+        <td>Rs. <span id="totalCTaxAmount">0</span></td>
         <td></td>
-        <td id="totalSTaxAmount">0</td>
+        <td>Rs. <span id="totalSTaxAmount">0</span></td>
       </tr>
       <tr class="totals">
         <td colspan="9" class="totalsText">Total Taxable Value</td>
@@ -244,16 +254,20 @@
         <td>Rs. <span id="grandTotal">0</span></td>
       </tr>
       <tr>
-        <td colspan="6">
-          <p><strong>Amount Chargeable (in words):</strong></p>
-          <p id="rupeesInWords"></p>
-        </td>
-        <td colspan="4" rowspan="2" id="esignCell">
-          <img src="e-sign.png" alt="e-sign" id="esignImage" />
+        <td colspan="10">
+          <div id="amountInWords">
+            <div>
+              <p><strong>Amount Chargeable (in words):</strong></p>
+              <p id="rupeesInWords"></p>
+            </div>
+            <div>
+              <p>E. & O.E</p>
+            </div>
+          </div>
         </td>
       </tr>
       <tr>
-        <td colspan="6" id="rupeesInWords">
+        <td colspan="6" id="rupeesInWords" class="center">
           <p><strong>Declaration</strong></p>
           <p>
             I hereby declare that this invoice shows the actual price of the
@@ -261,7 +275,13 @@
             correct.
           </p>
         </td>
+        <td colspan="4" rowspan="2" id="esignCell">
+          <p id="companySign">for LAXMI V ENTERPRISE</p>
+          <img src="eSign.png" alt="e-sign" id="esignImage" />
+          <p>Authorised Signatory</p>
+        </td>
       </tr>
+      <tr></tr>
       <tr>
         <td colspan="10" id="tablefooter">
           This is a Computer Generated Invoice

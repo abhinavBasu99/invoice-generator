@@ -31,6 +31,10 @@ button:hover {
   transform: scale(1.2);
 }
 
+.center {
+  text-align: center;
+}
+
 .table {
   max-width: 210mm;
   font-size: small;
@@ -39,7 +43,7 @@ button:hover {
 .table,
 .table th,
 .table td {
-  border: 2px solid black;
+  border: 1px solid black;
   border-collapse: collapse;
   padding: 5px;
 }
@@ -53,17 +57,38 @@ button:hover {
   border: none;
 }
 
-#esignImage {
-  width: 250px;
-  height: 170px;
-  border: 1px solid black;
-  border-collapse: collapse;
+#accountDetails {
+  display: flex;
 }
 
-.table td#esignCell {
-  padding: 0;
+#esignImage {
+  width: 250px;
+  height: 100px;
+}
+
+#amountInWords {
+  display: flex;
+  justify-content: space-between;
+}
+
+#qrContainer {
+  text-align: center;
+}
+
+#qrcode {
+  width: 100px;
+  height: 100px;
 }
 
 .table td#tablefooter {
+  border-bottom: none;
   text-align: center;
+}
+
+#esignCell {
+  text-align: right;
+}
+
+#companySign {
+  font-weight: bold;
 }

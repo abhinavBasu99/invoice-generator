@@ -180,6 +180,7 @@ addButton.addEventListener("click", function (e) {
 
   const srNo = document.createElement("td");
   srNo.textContent = srNoS.value;
+  srNo.classList.add("center");
   newRow.appendChild(srNo);
 
   const description = document.createElement("td");
@@ -188,38 +189,42 @@ addButton.addEventListener("click", function (e) {
 
   const hsn = document.createElement("td");
   hsn.textContent = itemCodeS.value;
+  hsn.classList.add("center");
   newRow.appendChild(hsn);
 
   const rate = document.createElement("td");
   rate.textContent = rateS.value;
+  rate.classList.add("center");
   newRow.appendChild(rate);
 
   const quantity = document.createElement("td");
   quantity.textContent = quantityS.value;
-  quantity.classList.add("quantity");
+  quantity.classList.add("quantity", "center");
   newRow.appendChild(quantity);
 
   const tValue = document.createElement("td");
-  tValue.textContent = taxableValueS.value;
-  tValue.classList.add("tvalue");
+  tValue.textContent = `Rs. ${taxableValueS.value}`;
+  tValue.classList.add("tvalue", "center");
   newRow.appendChild(tValue);
 
   const percentCT = document.createElement("td");
-  percentCT.textContent = cTaxPercentS.value;
+  percentCT.textContent = `${cTaxPercentS.value}%`;
+  percentCT.classList.add("center");
   newRow.appendChild(percentCT);
 
   const amountCT = document.createElement("td");
-  amountCT.textContent = cTaxAmountS.value;
-  amountCT.classList.add("amountCT");
+  amountCT.textContent = `Rs. ${cTaxAmountS.value}`;
+  amountCT.classList.add("amountCT", "center");
   newRow.appendChild(amountCT);
 
   const percentST = document.createElement("td");
-  percentST.textContent = sTaxPercentS.value;
+  percentST.textContent = `${sTaxPercentS.value}%`;
+  percentST.classList.add("center");
   newRow.appendChild(percentST);
 
   const amountST = document.createElement("td");
-  amountST.textContent = sTaxAmountS.value;
-  amountST.classList.add("amountST");
+  amountST.textContent = `Rs. ${sTaxAmountS.value}`;
+  amountST.classList.add("amountST", "center");
   newRow.appendChild(amountST);
 
   totalRow.parentNode.insertBefore(newRow, totalRow);
@@ -253,7 +258,7 @@ addButton.addEventListener("click", function (e) {
   let totalTaxableValue = 0;
 
   for (let i = 0; i < tValues.length; i++) {
-    totalTaxableValue += Number(tValues[i].innerText);
+    totalTaxableValue += Number(tValues[i].innerText.split(" ")[1]);
   }
 
   totalTaxableValueS.textContent = Math.round(totalTaxableValue);
@@ -264,7 +269,7 @@ addButton.addEventListener("click", function (e) {
   let totalCTaxAmount = 0;
 
   for (let i = 0; i < amountCTs.length; i++) {
-    totalCTaxAmount += Number(amountCTs[i].innerText);
+    totalCTaxAmount += Number(amountCTs[i].innerText.split(" ")[1]);
   }
 
   totalCTaxAmountS.textContent = Math.round(totalCTaxAmount);
@@ -275,7 +280,7 @@ addButton.addEventListener("click", function (e) {
   let totalSTaxAmount = 0;
 
   for (let i = 0; i < amountSTs.length; i++) {
-    totalSTaxAmount += Number(amountSTs[i].innerText);
+    totalSTaxAmount += Number(amountSTs[i].innerText.split(" ")[1]);
   }
 
   totalSTaxAmountS.textContent = Math.round(totalSTaxAmount);
@@ -312,8 +317,8 @@ generatePDFButton.addEventListener("click", function () {
     },
     x: 15,
     y: 10,
-    width: 350, //target width in the PDF document
-    windowWidth: 1550, //window width in CSS pixels
+    width: 210, //target width in the PDF document
+    windowWidth: 900, //window width in CSS pixels
   });
 });
 
